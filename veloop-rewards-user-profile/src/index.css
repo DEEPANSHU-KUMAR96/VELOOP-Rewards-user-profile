@@ -75,6 +75,16 @@
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 9999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
 
+/* ── Hide Scrollbar Utility ────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+
 /* ── Glass Surfaces ────────────────────────────────────────────────── */
 .glass {
   background: var(--bg-surface);

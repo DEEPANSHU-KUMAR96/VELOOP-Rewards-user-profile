@@ -61,8 +61,8 @@ export const Sidebar = ({ mobile = false, onClose }) => {
     <aside
       className={
         mobile
-          ? "flex flex-col h-full w-full z-40 transition-all duration-300 overflow-y-auto"
-          : "hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 z-40 pt-6 pb-5 px-4 transition-all duration-300 theme-sidebar overflow-y-auto"
+          ? "flex flex-col h-full w-full z-40 transition-all duration-300 overflow-y-auto no-scrollbar"
+          : "hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 z-40 pt-6 pb-5 px-4 transition-all duration-300 theme-sidebar overflow-y-auto no-scrollbar"
       }
       style={{
         background: mobile ? 'transparent' : 'var(--bg-sidebar)',

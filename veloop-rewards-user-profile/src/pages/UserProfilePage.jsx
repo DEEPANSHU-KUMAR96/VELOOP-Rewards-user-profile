@@ -78,7 +78,7 @@ export const UserProfilePage = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="relative z-10 w-72 max-w-[85vw] h-full p-6 flex flex-col overflow-y-auto" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
+          <div className="relative z-10 w-72 max-w-[85vw] h-full p-6 flex flex-col overflow-y-auto no-scrollbar" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
             <div className="flex items-center justify-between gap-2 mb-6 shrink-0">
               <div className="flex items-center gap-3">
                 <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
