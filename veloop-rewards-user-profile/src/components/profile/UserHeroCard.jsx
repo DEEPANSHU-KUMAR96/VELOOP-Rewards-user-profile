@@ -38,14 +38,14 @@ export const UserHeroCard = () => {
             e.stopPropagation();
             setAvatarModalOpen(true);
           }}
-          className="absolute bottom-0 right-0 w-7 h-7 rounded-xl bg-gradient-to-br from-[#ff7a1a] to-[#ff5000] border-2 border-[#12141c] text-white shadow-[0_4px_12px_rgba(255,107,0,0.6)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all cursor-pointer z-20"
+          className="absolute bottom-0 right-0 w-8 h-8 rounded-[12px] bg-gradient-to-br from-[#ff6b00] to-[#ff4500] border-[2.5px] border-[#121318] text-white shadow-[0_4px_12px_rgba(255,107,0,0.6)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all cursor-pointer z-20 group/pencil"
           aria-label="Change profile avatar"
         >
-          <Pencil className="w-3 h-3" />
+          <Pencil className="w-3.5 h-3.5 group-hover/pencil:rotate-12 transition-transform" />
         </button>
 
-        {/* Subtle status pulse */}
-        <div className="absolute top-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-2 border-[#121318] shadow-[0_0_8px_#10b981]" />
+        {/* Status dot */}
+        <div className="absolute top-0 right-0 w-5 h-5 rounded-full bg-[#00e676] border-[2.5px] border-[#121318] shadow-[0_0_8px_#00e676]" />
       </div>
 
       {/* Username */}
