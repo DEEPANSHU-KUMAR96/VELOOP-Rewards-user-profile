@@ -115,7 +115,8 @@ veloop-rewards-user-profile/
 ├── index.html
 ├── vite.config.js
 ├── eslint.config.js
-└── package.json
+├── package.json
+└── vercel.json
 ```
 
 ---
