@@ -1,148 +1,310 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useProfile } from '../../context/ProfileContext';
-import { Badge } from '../common/Badge';
-import { Zap, ArrowDownToLine, Settings, Pencil } from 'lucide-react';
+import {
+  Check, Copy, Info, Calendar, Shield, Crown, Sparkles, Zap
+} from 'lucide-react';
 import gsap from 'gsap';
 
 export const HeroBanner = () => {
-  const { userData, gainXP, setWithdrawOpen, setSettingsOpen, setAvatarModalOpen } = useProfile();
+  const { userData, gainXP, showToast, setAvatarModalOpen } = useProfile();
   const bannerRef = useRef(null);
-  const percentage = Math.min(100, Math.max(0, (userData.xp / userData.maxExp) * 100));
+  const [copiedId, setCopiedId] = useState(false);
+  const [copiedRef, setCopiedRef] = useState(false);
+
+  const xpCurrent = userData.xp || 6420;
+  const xpMax = userData.maxExp || 8000;
+  const percentage = Math.min(100, Math.max(0, Math.round((xpCurrent / xpMax) * 100)));
+  const xpRemaining = Math.max(0, xpMax - xpCurrent);
+  const nextLevel = String((userData.level || 4) + 1).padStart(2, '0');
+  const currentLevelStr = String(userData.level || 4).padStart(2, '0');
 
   useEffect(() => {
     if (bannerRef.current) {
-      gsap.fromTo(bannerRef.current, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
+      gsap.fromTo(
+        bannerRef.current,
+        { opacity: 0, y: -15 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
+      );
     }
   }, []);
 
+  const handleCopy = (text, type) => {
+    navigator.clipboard.writeText(text);
+    if (type === 'id') {
+      setCopiedId(true);
+      setTimeout(() => setCopiedId(false), 2000);
+      showToast('📋 User ID copied to clipboard!', 'success');
+    } else {
+      setCopiedRef(true);
+      setTimeout(() => setCopiedRef(false), 2000);
+      showToast('🎟️ Referral Code copied to clipboard!', 'success');
+    }
+  };
+
   return (
-    <div ref={bannerRef} className="relative w-full rounded-3xl overflow-hidden min-h-[280px] sm:min-h-[300px]">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1a0d00] via-[#0e0e1a] to-[#050608]" />
-      <div className="absolute inset-0 hero-banner" />
-
-      {/* Grid texture overlay */}
+    <div ref={bannerRef} className="w-full grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-5">
+      {/* ─── Circled Hero Profile Card (2 cols on XL screens) ─── */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="xl:col-span-2 relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-7 border overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,107,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,0,0.5) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
+          background: 'linear-gradient(135deg, rgba(18, 14, 48, 0.95) 0%, rgba(11, 9, 32, 0.98) 100%)',
+          borderColor: 'rgba(139, 92, 246, 0.30)',
         }}
-      />
+      >
+        {/* Background ambient glow effects */}
+        <div className="absolute -top-12 -left-12 w-60 h-60 bg-[#7c3aed]/15 rounded-full blur-[70px] pointer-events-none" />
+        <div className="absolute -bottom-10 right-20 w-72 h-40 bg-[#f59e0b]/10 rounded-full blur-[60px] pointer-events-none" />
 
-      {/* Glow orbs */}
-      <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#ff6b00]/15 rounded-full blur-[70px] pointer-events-none" />
-      <div className="absolute bottom-0 left-20 w-40 h-40 bg-[#7c3aed]/10 rounded-full blur-[50px] pointer-events-none" />
+        {/* Subtle mountain/cosmic horizon silhouette at the bottom */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-16 pointer-events-none opacity-25"
+          style={{
+            background: 'linear-gradient(to top, rgba(124, 58, 237, 0.25) 0%, transparent 100%)',
+          }}
+        />
 
-      {/* Content */}
-      <div className="relative z-10 p-5 sm:p-8 flex flex-col h-full min-h-[280px] gap-5">
-
-        {/* Top row — Avatar + User info */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
-          {/* Circular Avatar with glowing ring, green status dot, and orange pencil button */}
-          <div className="relative shrink-0 group/avatar">
-            {/* Circle Avatar with glowing orange border ring */}
-            <div
-              onClick={() => setAvatarModalOpen(true)}
-              className="gsap-avatar w-22 h-22 sm:w-28 sm:h-28 rounded-full p-[3.5px] bg-gradient-to-tr from-[#ff5500] via-[#ff8c32] to-[#ffaa40] shadow-[0_0_28px_rgba(255,107,0,0.5),inset_0_0_12px_rgba(255,140,0,0.3)] cursor-pointer transition-transform duration-300 group-hover/avatar:scale-[1.03] relative"
-              title="Click to change avatar"
-            >
-              <div className="w-full h-full rounded-full overflow-hidden bg-[#0c0d14] relative">
-                <img
-                  src={userData.avatar}
-                  alt={userData.username}
-                  className="w-full h-full object-cover rounded-full transition-transform duration-500 group-hover/avatar:scale-110"
-                  onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=200&auto=format&fit=crop'; }}
-                />
-
-                {/* Dark circular hover overlay with edit cue */}
-                <div className="absolute inset-0 rounded-full bg-black/55 backdrop-blur-[2px] opacity-0 group-hover/avatar:opacity-100 transition-all duration-200 flex flex-col items-center justify-center text-white gap-1">
-                  <Pencil className="w-4 h-4 text-[#ff9e42] animate-bounce" />
-                  <span className="text-[10px] font-bold tracking-wider uppercase text-white/90">Change</span>
+        {/* Content Layout */}
+        <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+          {/* Left: Avatar + Details */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 flex-1 min-w-0">
+            {/* Avatar with multi-color glowing gradient ring & attached shield badge */}
+            <div className="relative shrink-0 group/avatar cursor-pointer" onClick={() => setAvatarModalOpen(true)}>
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-amber-400 via-purple-500 to-indigo-500 shadow-[0_0_24px_rgba(139,92,246,0.5)] transition-transform duration-300 group-hover/avatar:scale-105">
+                <div className="w-full h-full rounded-full overflow-hidden bg-[#0e0c24] relative">
+                  <img
+                    src={userData.avatar || '/avatar.jpg'}
+                    alt={userData.displayName || userData.username}
+                    className="w-full h-full object-cover rounded-full"
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=200&auto=format&fit=crop';
+                    }}
+                  />
+                  {/* Subtle dark hover overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">Edit</span>
+                  </div>
                 </div>
+              </div>
+
+              {/* Bottom-right attached purple shield badge */}
+              <div
+                className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#1e1548] border border-purple-400/60 shadow-[0_0_8px_rgba(139,92,246,0.6)] flex items-center justify-center text-amber-400 pointer-events-none"
+                title="Verified Pioneer"
+              >
+                <Shield className="w-3.5 h-3.5 fill-purple-500/30 text-purple-300" />
               </div>
             </div>
 
-            {/* Top-Right Green Status Dot with dark border */}
-            <div
-              className="absolute top-0.5 right-0.5 w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-[#00e676] border-[2px] sm:border-[2.5px] border-[#0c0d14] shadow-[0_0_8px_#00e676] z-20 pointer-events-none"
-              title="Online"
-            />
+            {/* Profile Info Details */}
+            <div className="flex-1 min-w-0 text-center sm:text-left">
+              {/* Name + Verified Badge */}
+              <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap mb-1">
+                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                  {userData.displayName || userData.username || 'Ayan Alam'}
+                </h1>
+                {userData.isVerified && (
+                  <div className="w-5 h-5 rounded-full bg-[#3b82f6] flex items-center justify-center text-white shadow-[0_0_10px_rgba(59,130,246,0.6)]" title="Verified Account">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                )}
+              </div>
 
-            {/* Bottom-Right Compact Orange Squircle Pencil Edit Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setAvatarModalOpen(true);
+              {/* Role / Subtitle */}
+              <p className="text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                {userData.tier || 'Reward Explorer'}
+              </p>
+
+              {/* Status Pill: Account Active */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-4 shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#34d399]" />
+                <span className="text-[11px] font-bold text-emerald-400 tracking-wide">
+                  {userData.status || 'Account Active'}
+                </span>
+              </div>
+
+              {/* Bottom Metadata Info Grid */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-6 pt-3 border-t border-white/[0.06] text-xs">
+                {/* Member Since */}
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] text-gray-400 font-medium tracking-wide">Member Since</span>
+                  <span className="font-semibold text-gray-200 text-xs sm:text-[13px] mt-0.5">
+                    {userData.memberSince || 'May 2026'}
+                  </span>
+                </div>
+
+                {/* User ID */}
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] text-gray-400 font-medium tracking-wide">User ID</span>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="font-mono font-semibold text-gray-200 text-xs sm:text-[13px]">
+                      {userData.id || 'VLR058200508123'}
+                    </span>
+                    <button
+                      onClick={() => handleCopy(userData.id || 'VLR058200508123', 'id')}
+                      className="p-1 text-gray-400 hover:text-white transition-colors cursor-pointer rounded"
+                      title="Copy User ID"
+                    >
+                      {copiedId ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Referral Code */}
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] text-gray-400 font-medium tracking-wide">Referral Code</span>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="font-mono font-bold text-amber-400 text-xs sm:text-[13px]">
+                      {userData.referral?.code || 'VELOOP123'}
+                    </span>
+                    <button
+                      onClick={() => handleCopy(userData.referral?.code || 'VELOOP123', 'ref')}
+                      className="p-1 text-amber-400/70 hover:text-amber-300 transition-colors cursor-pointer rounded"
+                      title="Copy Referral Code"
+                    >
+                      {copiedRef ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Golden Level 04 Shield Crest */}
+          <div className="shrink-0 flex flex-col items-center justify-center relative pt-1">
+            {/* Glowing amber aura behind shield */}
+            <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl pointer-events-none" />
+
+            <div
+              className="relative w-28 sm:w-32 py-3 px-2 rounded-2xl flex flex-col items-center justify-center border shadow-[0_0_24px_rgba(245,158,11,0.25)]"
+              style={{
+                background: 'linear-gradient(180deg, rgba(32, 22, 60, 0.9) 0%, rgba(18, 12, 40, 0.95) 100%)',
+                borderColor: 'rgba(245, 158, 11, 0.45)',
               }}
-              className="absolute bottom-0 right-0 w-7 h-7 sm:w-8 sm:h-8 rounded-[9px] sm:rounded-[11px] bg-gradient-to-br from-[#ff6b00] to-[#ff4500] border-[2px] sm:border-[2.5px] border-[#0c0d14] text-white shadow-[0_2px_10px_rgba(255,90,0,0.5)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer z-20 group/pencil"
-              aria-label="Change profile avatar"
-              title="Change avatar"
             >
-              <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white stroke-[2.5] group-hover/pencil:rotate-12 transition-transform" />
+              {/* Laurel / Top Crown Icon */}
+              <div className="flex items-center gap-1 text-amber-400 mb-0.5">
+                <Crown className="w-3.5 h-3.5 fill-amber-400/30" />
+                <span className="text-[9px] font-extrabold text-amber-300 tracking-[0.2em] uppercase">
+                  LEVEL
+                </span>
+                <Crown className="w-3.5 h-3.5 fill-amber-400/30 scale-x-[-1]" />
+              </div>
+
+              {/* Large Level Number */}
+              <div className="text-3xl sm:text-4xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-[0_2px_12px_rgba(251,191,36,0.5)] my-0.5">
+                {currentLevelStr}
+              </div>
+
+              {/* Bottom Amber Ribbon Banner */}
+              <div className="w-full mt-1 px-1.5 py-0.5 rounded bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 text-[#1a0f00] font-black text-[8px] sm:text-[9px] tracking-wider uppercase text-center shadow-[0_2px_8px_rgba(245,158,11,0.4)] truncate">
+                {userData.tier || 'REWARD EXPLORER'}
+              </div>
+            </div>
+
+            {/* Amber Light Base Glow */}
+            <div className="w-20 h-1.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mt-1 blur-[1px]" />
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Right XP Progress Card (1 col on XL screens) ─── */}
+      <div
+        className="relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 border overflow-hidden flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+        style={{
+          background: 'linear-gradient(135deg, rgba(18, 14, 48, 0.95) 0%, rgba(11, 9, 32, 0.98) 100%)',
+          borderColor: 'rgba(139, 92, 246, 0.30)',
+        }}
+      >
+        {/* Ambient mountain/nebula background silhouette */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-28 pointer-events-none opacity-40"
+          style={{
+            background: 'radial-gradient(ellipse at bottom, rgba(124, 58, 237, 0.35) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Top Header */}
+        <div className="relative z-10">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-1.5 text-gray-300 font-bold text-xs tracking-wide">
+              <span>XP Progress</span>
+              <Info className="w-3.5 h-3.5 text-gray-400" />
+            </div>
+
+            <button
+              onClick={() => gainXP(25)}
+              className="text-[10px] font-bold text-indigo-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/30"
+              title="Click to boost XP"
+            >
+              <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
+              +25 XP
             </button>
           </div>
 
-          {/* Text info */}
-          <div className="text-center sm:text-left w-full min-w-0">
-            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start mb-2">
-              <Badge variant="level" label={`Level ${userData.level}`} size="md" />
-              {userData.isVerified && <Badge variant="verified" size="md" />}
-              {userData.level >= 5 && <Badge variant="pro" label={userData.tier} size="sm" />}
-            </div>
-            <h1 className="text-xl sm:text-3xl font-black text-white tracking-tight leading-none mb-1 break-all">
-              {userData.username}
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-400">
-              Member since {userData.memberSince} &middot; <span className="text-[#ff8c32] break-all">{userData.email}</span>
-            </p>
+          <div className="flex items-baseline gap-1.5 mt-1">
+            <span className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
+              {xpCurrent.toLocaleString()}
+            </span>
+            <span className="text-sm font-semibold text-gray-400 font-mono">
+              / {xpMax.toLocaleString()} XP
+            </span>
           </div>
+
+          <p className="text-[11px] text-gray-400 font-medium mt-1">
+            {xpRemaining > 0 ? `${xpRemaining.toLocaleString()} XP to Level ${nextLevel}` : 'Max Level reached!'}
+          </p>
         </div>
 
-        {/* XP bar — full width */}
-        <div className="w-full">
-          <div className="flex justify-between text-xs text-gray-400 mb-1.5">
-            <span>XP Progress</span>
-            <span className="text-[#ff8c32] font-bold font-mono">{userData.xp} / {userData.maxExp}</span>
-          </div>
-          <div
-            className="relative h-2.5 bg-white/[0.08] rounded-full overflow-hidden cursor-pointer"
-            onClick={() => gainXP(25)}
-            title="Click to gain 25 XP"
-          >
+        {/* Progress Bar & Circular Percent Gauge */}
+        <div className="relative z-10 mt-5 pt-3 flex items-center gap-4">
+          {/* Neon Horizontal Gradient Bar */}
+          <div className="flex-1">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#ff8c32] to-[#ff4800] transition-all duration-700"
-              style={{ width: `${percentage}%` }}
+              className="relative h-3 bg-white/[0.08] rounded-full overflow-hidden cursor-pointer"
+              onClick={() => gainXP(25)}
+              title="Click to gain XP"
             >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white progress-spark" />
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#ff5500] via-[#ec4899] to-[#8b5cf6] transition-all duration-700 shadow-[0_0_12px_rgba(236,72,153,0.5)]"
+                style={{ width: `${percentage}%` }}
+              />
             </div>
           </div>
-        </div>
 
-        {/* Action buttons — responsive row */}
-        <div className="flex items-center gap-2.5 flex-wrap">
-          <button
-            onClick={() => gainXP(25)}
-            className="btn-orange flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white font-bold text-sm cursor-pointer flex-1 sm:flex-none justify-center"
-          >
-            <Zap className="w-4 h-4" />
-            Gain XP
-          </button>
-          <button
-            onClick={() => setWithdrawOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/[0.1] text-gray-200 font-bold text-sm hover:bg-white/[0.10] hover:border-white/[0.18] transition-all cursor-pointer active:scale-95 flex-1 sm:flex-none justify-center"
-          >
-            <ArrowDownToLine className="w-4 h-4" />
-            Withdraw
-          </button>
-          <button
-            onClick={() => setSettingsOpen(true)}
-            className="w-10 h-10 rounded-2xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.10] transition-all cursor-pointer shrink-0"
-          >
-            <Settings className="w-4.5 h-4.5" />
-          </button>
+          {/* Circular Percentage Ring */}
+          <div className="shrink-0 relative w-12 h-12 flex items-center justify-center">
+            <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <path
+                className="text-white/[0.08]"
+                strokeWidth="3.5"
+                stroke="currentColor"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <path
+                className="text-[#a855f7]"
+                strokeDasharray={`${percentage}, 100`}
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                stroke="url(#xpGrad)"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <defs>
+                <linearGradient id="xpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ff5500" />
+                  <stop offset="50%" stopColor="#ec4899" />
+                  <stop offset="100%" stopColor="#8b5cf6" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[11px] font-black text-white">{percentage}%</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
