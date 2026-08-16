@@ -17,6 +17,7 @@ import { ProfileInfoPanel }  from '../components/profile/ProfileInfoPanel';
 // Modals
 import { SettingsModal } from '../components/profile/SettingsModal';
 import { WithdrawModal } from '../components/profile/WithdrawModal';
+import { AvatarModal }   from '../components/profile/AvatarModal';
 
 // Common
 import { Toast } from '../components/common/Toast';
@@ -124,6 +125,7 @@ export const UserProfilePage = () => {
       {/* Modals */}
       <SettingsModal />
       <WithdrawModal />
+      <AvatarModal />
 
       {/* Toast */}
       <Toast show={toast.show} message={toast.message} type={toast.type} onClose={hideToast} />

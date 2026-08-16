@@ -9,6 +9,7 @@ export const ProfileProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState('account');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
+  const [avatarModalOpen, setAvatarModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
   const showToast = (message, type = 'success') => {
@@ -17,6 +18,13 @@ export const ProfileProvider = ({ children }) => {
   };
 
   const hideToast = () => setToast((prev) => ({ ...prev, show: false }));
+
+  const updateAvatar = (newAvatar) => {
+    if (!newAvatar) return;
+    setUserData((prev) => ({ ...prev, avatar: newAvatar }));
+    triggerConfetti();
+    showToast('🎨 Profile avatar updated successfully!', 'success');
+  };
 
   const gainXP = (amount = 25) => {
     setUserData((prev) => {
@@ -86,6 +94,9 @@ export const ProfileProvider = ({ children }) => {
         setSettingsOpen,
         withdrawOpen,
         setWithdrawOpen,
+        avatarModalOpen,
+        setAvatarModalOpen,
+        updateAvatar,
         gainXP,
         handleWithdraw,
         updateProfile,

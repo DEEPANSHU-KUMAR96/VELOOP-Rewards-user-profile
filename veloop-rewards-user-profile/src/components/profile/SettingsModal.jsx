@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Bell, Shield, LogOut, ChevronRight, Moon, Smartphone, HelpCircle } from 'lucide-react';
+import { X, Bell, Shield, LogOut, ChevronRight, Moon, Smartphone, HelpCircle, Pencil } from 'lucide-react';
 import { Modal } from '../common/Modal';
 import { useProfile } from '../../context/ProfileContext';
 
@@ -29,7 +29,7 @@ const SettingRow = ({ icon: Icon, label, sublabel, action, color = '#ff8c32', da
 );
 
 export const SettingsModal = () => {
-  const { settingsOpen, setSettingsOpen, showToast, userData } = useProfile();
+  const { settingsOpen, setSettingsOpen, showToast, userData, setAvatarModalOpen } = useProfile();
 
   const actions = {
     notifications: () => showToast('🔔 Notification settings coming soon!', 'info'),
@@ -43,20 +43,39 @@ export const SettingsModal = () => {
     },
   };
 
+  const handleOpenAvatarModal = () => {
+    setSettingsOpen(false);
+    setAvatarModalOpen(true);
+  };
+
   return (
     <Modal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} title="Settings">
       {/* Profile snapshot */}
-      <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#ff8c32]/8 border border-[#ff8c32]/15 mb-5">
-        <img
-          src={userData.avatar}
-          alt={userData.username}
-          className="w-12 h-12 rounded-full object-cover border-2 border-[#ff8c32]/40"
-          onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=100&auto=format&fit=crop'; }}
-        />
-        <div>
-          <p className="font-bold text-white text-sm">{userData.username}</p>
-          <p className="text-xs text-gray-400">{userData.email}</p>
+      <div className="flex items-center justify-between p-3 rounded-2xl bg-[#ff8c32]/8 border border-[#ff8c32]/15 mb-5">
+        <div className="flex items-center gap-3">
+          <div className="relative group cursor-pointer" onClick={handleOpenAvatarModal} title="Change avatar">
+            <img
+              src={userData.avatar}
+              alt={userData.username}
+              className="w-12 h-12 rounded-full object-cover border-2 border-[#ff8c32]/40 group-hover:opacity-80 transition-opacity"
+              onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=100&auto=format&fit=crop'; }}
+            />
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#ff6b00] border border-[#16171f] text-white flex items-center justify-center shadow">
+              <Pencil className="w-2.5 h-2.5" />
+            </div>
+          </div>
+          <div>
+            <p className="font-bold text-white text-sm">{userData.username}</p>
+            <p className="text-xs text-gray-400">{userData.email}</p>
+          </div>
         </div>
+
+        <button
+          onClick={handleOpenAvatarModal}
+          className="px-3 py-1.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-xs font-semibold text-white transition-all cursor-pointer"
+        >
+          Change Avatar
+        </button>
       </div>
 
       {/* Settings groups */}
