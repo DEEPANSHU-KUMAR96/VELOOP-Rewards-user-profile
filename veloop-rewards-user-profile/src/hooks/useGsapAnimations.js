@@ -54,23 +54,42 @@ export const useGsapAnimations = (containerRef, dependencies = []) => {
 /**
  * Animate a counter number from start to end
  */
-export const animateCounter = (element, targetValue, duration = 1.2) => {
+const activeCounterTweens = new WeakMap();
+
+export const animateCounter = (element, targetValue, duration = 0.8) => {
   if (!element) return;
-  const obj = { val: 0 };
   const isNumber = !isNaN(Number(targetValue));
   if (!isNumber) {
     element.innerText = targetValue;
     return;
   }
 
-  gsap.to(obj, {
-    val: Number(targetValue),
+  const numVal = Number(targetValue);
+  const obj = { val: 0 };
+
+  // Kill existing tween on this element if any
+  const prevTween = activeCounterTweens.get(element);
+  if (prevTween) {
+    prevTween.kill();
+  }
+
+  const tween = gsap.to(obj, {
+    val: numVal,
     duration,
     ease: 'power2.out',
     onUpdate: () => {
-      element.innerText = Math.floor(obj.val).toLocaleString();
+      if (element) {
+        element.innerText = Math.floor(obj.val).toLocaleString();
+      }
     },
+    onComplete: () => {
+      if (element) {
+        element.innerText = numVal.toLocaleString();
+      }
+    }
   });
+
+  activeCounterTweens.set(element, tween);
 };
 
 /**

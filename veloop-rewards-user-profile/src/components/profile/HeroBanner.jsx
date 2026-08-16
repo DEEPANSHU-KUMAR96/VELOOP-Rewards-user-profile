@@ -7,7 +7,6 @@ import gsap from 'gsap';
 
 export const HeroBanner = () => {
   const { userData, gainXP, showToast, setAvatarModalOpen } = useProfile();
-  const bannerRef = useRef(null);
   const [copiedId, setCopiedId] = useState(false);
   const [copiedRef, setCopiedRef] = useState(false);
 
@@ -17,16 +16,6 @@ export const HeroBanner = () => {
   const xpRemaining = Math.max(0, xpMax - xpCurrent);
   const nextLevel = String((userData.level || 4) + 1).padStart(2, '0');
   const currentLevelStr = String(userData.level || 4).padStart(2, '0');
-
-  useEffect(() => {
-    if (bannerRef.current) {
-      gsap.fromTo(
-        bannerRef.current,
-        { opacity: 0, y: -15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
-      );
-    }
-  }, []);
 
   const handleCopy = (text, type) => {
     navigator.clipboard.writeText(text);
@@ -42,18 +31,19 @@ export const HeroBanner = () => {
   };
 
   return (
-    <div ref={bannerRef} className="w-full grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-5">
+    <div className="w-full grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-5">
       {/* ─── Circled Hero Profile Card (2 cols on XL screens) ─── */}
       <div
         className="xl:col-span-2 relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-7 border overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
         style={{
           background: 'linear-gradient(135deg, rgba(18, 14, 48, 0.95) 0%, rgba(11, 9, 32, 0.98) 100%)',
           borderColor: 'rgba(139, 92, 246, 0.30)',
+          transform: 'translateZ(0)',
         }}
       >
-        {/* Background ambient glow effects */}
-        <div className="absolute -top-12 -left-12 w-60 h-60 bg-[#7c3aed]/15 rounded-full blur-[70px] pointer-events-none" />
-        <div className="absolute -bottom-10 right-20 w-72 h-40 bg-[#f59e0b]/10 rounded-full blur-[60px] pointer-events-none" />
+        {/* Background ambient glow effects (GPU optimized) */}
+        <div className="absolute -top-12 -left-12 w-60 h-60 bg-[#7c3aed]/15 rounded-full blur-[40px] pointer-events-none transform-gpu" />
+        <div className="absolute -bottom-10 right-20 w-72 h-40 bg-[#f59e0b]/10 rounded-full blur-[35px] pointer-events-none transform-gpu" />
 
         {/* Subtle mountain/cosmic horizon silhouette at the bottom */}
         <div
@@ -66,7 +56,7 @@ export const HeroBanner = () => {
         {/* Content Layout */}
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
           {/* Left: Avatar + Details */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 flex-1 min-w-0">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 flex-1 min-w-0 w-full">
             {/* Avatar with multi-color glowing gradient ring & attached shield badge */}
             <div className="relative shrink-0 group/avatar cursor-pointer" onClick={() => setAvatarModalOpen(true)}>
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-amber-400 via-purple-500 to-indigo-500 shadow-[0_0_24px_rgba(139,92,246,0.5)] transition-transform duration-300 group-hover/avatar:scale-105">

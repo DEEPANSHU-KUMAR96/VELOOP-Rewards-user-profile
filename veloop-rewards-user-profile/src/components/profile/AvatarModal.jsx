@@ -205,7 +205,7 @@ export const AvatarModal = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="min-h-[190px] max-h-[240px] overflow-y-auto pr-1">
+        <div className="min-h-[190px] max-h-[240px] overflow-y-auto no-scrollbar">
           {/* TAB 1: PRESETS */}
           {activeTab === 'presets' && (
             <div>

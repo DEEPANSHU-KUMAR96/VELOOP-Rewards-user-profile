@@ -33,10 +33,10 @@ export const WebReferralPanel = () => {
       <div className="absolute top-0 left-0 right-0 h-[2px] refer-top-beam z-10" />
 
       {/* Top animated ambient glow */}
-      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 bg-[#ff6b00]/25 rounded-full blur-[35px] pointer-events-none refer-top-glow" />
+      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 bg-[#ff6b00]/25 rounded-full pointer-events-none refer-top-glow" />
 
       {/* Bottom corner animated pulsing glow orb */}
-      <div className="absolute -bottom-10 -right-10 w-52 h-52 bg-gradient-to-br from-[#ff6b00]/30 to-[#ff3d00]/10 rounded-full blur-[50px] pointer-events-none refer-glow-orb" />
+      <div className="absolute -bottom-10 -right-10 w-52 h-52 bg-gradient-to-br from-[#ff6b00]/30 to-[#ff3d00]/10 rounded-full pointer-events-none refer-glow-orb" />
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-5 relative z-10">

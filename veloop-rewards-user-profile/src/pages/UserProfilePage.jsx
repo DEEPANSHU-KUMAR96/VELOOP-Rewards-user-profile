@@ -4,20 +4,20 @@ import { useGsapAnimations } from '../hooks/useGsapAnimations';
 
 // Layout
 import { Sidebar } from '../components/layout/Sidebar';
-import { TopNav }  from '../components/layout/TopNav';
+import { TopNav } from '../components/layout/TopNav';
 
 // Sections
-import { HeroBanner }        from '../components/profile/HeroBanner';
-import { WebStatsRow }       from '../components/profile/WebStatsRow';
-import { WebAssetsPanel }    from '../components/profile/WebAssetsPanel';
-import { WebReferralPanel }  from '../components/profile/WebReferralPanel';
+import { HeroBanner } from '../components/profile/HeroBanner';
+import { WebStatsRow } from '../components/profile/WebStatsRow';
+import { WebAssetsPanel } from '../components/profile/WebAssetsPanel';
+import { WebReferralPanel } from '../components/profile/WebReferralPanel';
 import { WebAnalyticsPanel } from '../components/profile/WebAnalyticsPanel';
-import { ProfileInfoPanel }  from '../components/profile/ProfileInfoPanel';
+import { ProfileInfoPanel } from '../components/profile/ProfileInfoPanel';
 
 // Modals
 import { SettingsModal } from '../components/profile/SettingsModal';
 import { WithdrawModal } from '../components/profile/WithdrawModal';
-import { AvatarModal }   from '../components/profile/AvatarModal';
+import { AvatarModal } from '../components/profile/AvatarModal';
 
 // Common
 import { Toast } from '../components/common/Toast';
@@ -28,9 +28,9 @@ import { Home, Gift, Users2, UserCircle2, Flame } from 'lucide-react';
 const MobileBottomNav = () => {
   const { activeTab, setActiveTab, showToast } = useProfile();
   const TABS = [
-    { id: 'home',    label: 'Home',    icon: Home },
+    { id: 'home', label: 'Home', icon: Home },
     { id: 'rewards', label: 'Rewards', icon: Gift },
-    { id: 'refer',   label: 'Refer',   icon: Users2 },
+    { id: 'refer', label: 'Refer', icon: Users2 },
     { id: 'account', label: 'Profile', icon: UserCircle2 },
   ];
   return (
@@ -62,13 +62,13 @@ export const UserProfilePage = () => {
   useGsapAnimations(containerRef, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen flex" style={{ background: 'var(--bg-base)', transition: 'background 0.35s ease' }}>
+    <div ref={containerRef} className="min-h-screen flex relative" style={{ background: 'var(--bg-base)', transition: 'background 0.35s ease' }}>
 
-      {/* Ambient background orbs */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute top-[-80px] left-[30%] w-[500px] h-[500px] bg-[#ff6b00]/[0.06] rounded-full blur-[100px]" />
-        <div className="absolute bottom-20 right-[5%] w-[320px] h-[320px] bg-[#7c3aed]/[0.05] rounded-full blur-[80px]" />
-        <div className="absolute top-[40%] left-[60%] w-[200px] h-[200px] bg-[#0ea5e9]/[0.04] rounded-full blur-[60px]" />
+      {/* Ambient background (GPU optimized subtle gradients) */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" style={{ transform: 'translateZ(0)' }}>
+        <div className="absolute top-[-80px] left-[30%] w-[500px] h-[500px] bg-[#ff6b00]/[0.05] rounded-full blur-[60px] transform-gpu" />
+        <div className="absolute bottom-20 right-[5%] w-[320px] h-[320px] bg-[#7c3aed]/[0.04] rounded-full blur-[50px] transform-gpu" />
+        <div className="absolute top-[40%] left-[60%] w-[200px] h-[200px] bg-[#0ea5e9]/[0.03] rounded-full blur-[40px] transform-gpu" />
       </div>
 
       {/* Sidebar — desktop */}
@@ -108,7 +108,7 @@ export const UserProfilePage = () => {
         <TopNav onMenuToggle={() => setMobileMenuOpen(p => !p)} menuOpen={mobileMenuOpen} />
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-6 pb-24 lg:pb-10">
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-6 pb-24 lg:pb-10">
 
           <div className="gsap-fade-in"><HeroBanner /></div>
 

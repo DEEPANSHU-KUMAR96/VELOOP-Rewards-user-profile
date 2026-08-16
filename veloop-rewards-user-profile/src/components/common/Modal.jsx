@@ -56,7 +56,7 @@ export const Modal = ({ isOpen, onClose, title, maxWidth = 'max-w-md', children 
         </div>
 
         {/* Body */}
-        <div className="max-h-[75vh] overflow-y-auto pr-1">{children}</div>
+        <div className="max-h-[75vh] overflow-y-auto no-scrollbar">{children}</div>
       </div>
     </div>
   );
