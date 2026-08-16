@@ -90,7 +90,7 @@ export const HeroBanner = () => {
               {/* Name + Verified Badge */}
               <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap mb-1">
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  {userData.displayName || userData.username || 'Ayan Alam'}
+                  {userData.displayName || userData.username || 'Deepanshu Kumar'}
                 </h1>
                 {userData.isVerified && (
                   <div className="w-5 h-5 rounded-full bg-[#3b82f6] flex items-center justify-center text-white shadow-[0_0_10px_rgba(59,130,246,0.6)]" title="Verified Account">

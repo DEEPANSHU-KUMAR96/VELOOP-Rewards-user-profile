@@ -1,7 +1,7 @@
 export const initialUserData = {
   id: 'VLR058200508123',
-  username: 'Ayan Alam',
-  displayName: 'Ayan Alam',
+  username: 'Deepanshu Kumar',
+  displayName: 'Deepanshu Kumar',
   avatar: '/avatar.jpg',
   level: 4,
   isVerified: true,
@@ -34,13 +34,13 @@ export const initialUserData = {
     totalWithdrawn: 2450,
   },
   memberSince: 'May 2026',
-  email: 'ayan.alam@example.com',
+  email: 'deepanshumerncode@gmail.com',
 };
 
 export const activeUserData = {
   id: 'VLR058200508123',
-  username: 'Ayan Alam',
-  displayName: 'Ayan Alam',
+  username: 'Deepanshu Kumar',
+  displayName: 'Deepanshu Kumar',
   avatar: '/avatar.jpg',
   level: 4,
   isVerified: true,
@@ -73,6 +73,6 @@ export const activeUserData = {
     totalWithdrawn: 2450,
   },
   memberSince: 'May 2026',
-  email: 'ayan.alam@example.com',
+  email: 'deepanshumerncode@gmail.com',
 };
 
