@@ -1,0 +1,199 @@
+/* ─── Veloop Website — Theme-aware CSS ─────────────────────────── */
+
+@import "tailwindcss";
+
+/* ── CSS Custom Properties (Design Tokens) ──────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg-base:       #080a0f;
+  --bg-surface:    rgba(16, 18, 26, 0.75);
+  --bg-card:       rgba(15, 17, 24, 0.80);
+  --bg-sidebar:    #0b0d14;
+  --bg-hover:      rgba(255, 255, 255, 0.04);
+  --bg-input:      #111420;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-card:   rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --text-primary:  #f0f2f8;
+  --text-secondary:#9ca3af;
+  --text-muted:    #6b7280;
+  --text-faint:    #374151;
+
+  --orange:        #ff6b00;
+  --orange-soft:   #ff8c32;
+  --orange-glow:   rgba(255, 107, 0, 0.15);
+
+  --shadow-card:   0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow:   0 0 40px -10px rgba(255, 107, 0, 0.25);
+}
+
+[data-theme="light"] {
+  --bg-base:       #f0f2f8;
+  --bg-surface:    rgba(255, 255, 255, 0.85);
+  --bg-card:       rgba(255, 255, 255, 0.92);
+  --bg-sidebar:    #ffffff;
+  --bg-hover:      rgba(0, 0, 0, 0.04);
+  --bg-input:      #f8f9fd;
+
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-card:   rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
+
+  --text-primary:  #111318;
+  --text-secondary:#4b5563;
+  --text-muted:    #9ca3af;
+  --text-faint:    #d1d5db;
+
+  --orange:        #ff6b00;
+  --orange-soft:   #ff8c32;
+  --orange-glow:   rgba(255, 107, 0, 0.10);
+
+  --shadow-card:   0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-glow:   0 0 30px -8px rgba(255, 107, 0, 0.20);
+}
+
+/* ── Base Styles ──────────────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+/* ── Glass Surfaces ────────────────────────────────────────────────── */
+.glass {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.glass-orange {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 107, 0, 0.20);
+  box-shadow: var(--shadow-glow);
+  transition: background 0.35s ease;
+}
+
+/* ── Themed Utility classes ───────────────────────────────────────── */
+.bg-theme-base    { background-color: var(--bg-base); }
+.bg-theme-surface { background-color: var(--bg-surface); }
+.bg-theme-card    { background-color: var(--bg-card); }
+.bg-theme-sidebar { background-color: var(--bg-sidebar); }
+.bg-theme-hover   { background-color: var(--bg-hover); }
+.bg-theme-input   { background-color: var(--bg-input); }
+
+.text-theme-primary   { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-muted     { color: var(--text-muted); }
+
+.border-theme-subtle { border-color: var(--border-subtle); }
+.border-theme-card   { border-color: var(--border-card); }
+.border-theme-strong { border-color: var(--border-strong); }
+
+/* ── Hero Banner ─────────────────────────────────────────────────── */
+[data-theme="dark"] .hero-banner {
+  background:
+    linear-gradient(180deg, rgba(8,10,15,0) 0%, rgba(8,10,15,0.85) 70%, #080a0f 100%),
+    linear-gradient(135deg, rgba(255,107,0,0.12) 0%, rgba(124,58,237,0.08) 50%, transparent 100%);
+}
+[data-theme="light"] .hero-banner {
+  background:
+    linear-gradient(180deg, rgba(240,242,248,0) 0%, rgba(240,242,248,0.80) 70%, #f0f2f8 100%),
+    linear-gradient(135deg, rgba(255,107,0,0.10) 0%, rgba(124,58,237,0.06) 50%, transparent 100%);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────── */
+[data-theme="dark"] .theme-sidebar {
+  background: #0b0d14;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+[data-theme="light"] .theme-sidebar {
+  background: #ffffff;
+  border-right: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 4px 0 20px rgba(0,0,0,0.06);
+}
+
+/* ── Stat card hover ─────────────────────────────────────────────── */
+.stat-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.35s ease;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 107, 0, 0.30);
+  box-shadow: 0 12px 30px -8px rgba(255, 107, 0, 0.18);
+}
+
+/* ── Asset floating animation ────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+.float-anim { animation: float 3.5s ease-in-out infinite; }
+
+/* ── Progress bar spark ──────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(255,107,0,0.6); }
+  50%       { box-shadow: 0 0 20px rgba(255,107,0,1); }
+}
+.progress-spark { animation: pulse-glow 1.5s ease-in-out infinite; }
+
+/* ── Shimmer skeleton ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--bg-hover) 25%, var(--border-subtle) 37%, var(--bg-hover) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ── Orange CTA button ───────────────────────────────────────────── */
+.btn-orange {
+  background: linear-gradient(135deg, #ff6b00 0%, #e85000 100%);
+  box-shadow: 0 6px 24px -4px rgba(255,107,0,0.55);
+  transition: all 0.22s ease;
+}
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -4px rgba(255,107,0,0.70);
+}
+.btn-orange:active { transform: translateY(0) scale(0.97); }
+
+/* ── Glow utilities ──────────────────────────────────────────────── */
+.glow-ring {
+  box-shadow: 0 0 0 3px rgba(255,107,0,0.35), 0 0 30px rgba(255,107,0,0.25);
+}
+
+/* ── Monospace code text ─────────────────────────────────────────── */
+.code-text {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  letter-spacing: 0.15em;
+}
+
+/* ── Theme toggle animation ──────────────────────────────────────── */
+.theme-toggle-icon {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+}
+.theme-toggle-icon.entering {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}

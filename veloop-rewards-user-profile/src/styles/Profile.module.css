@@ -1,0 +1,209 @@
+/* Profile Component CSS Module */
+
+.profileContainer {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  background-color: #0e0f12;
+  color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 768px) {
+  .profileContainer {
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}
+
+.heroWrapper {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 140, 50, 0.18) 0%, rgba(35, 30, 25, 0.6) 50%, rgba(18, 19, 24, 0.95) 100%);
+  border: 1px solid rgba(255, 140, 50, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(255, 107, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  padding: 32px 20px 24px 20px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+}
+
+.heroGlowOrb {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 120, 30, 0.35) 0%, rgba(255, 80, 0, 0) 70%);
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.avatarRing {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 16px auto;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #ff9e42 0%, #ff5e00 50%, #7c2d12 100%);
+  box-shadow: 0 0 25px rgba(255, 107, 0, 0.5), inset 0 0 15px rgba(255, 140, 0, 0.4);
+  z-index: 1;
+}
+
+.avatarInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #121318;
+  position: relative;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.avatarRing:hover .avatarImg {
+  transform: scale(1.08);
+}
+
+.referCard {
+  position: relative;
+  background: linear-gradient(170deg, #1f1814 0%, #151418 60%, #1a1410 100%);
+  border-radius: 22px;
+  padding: 24px 20px;
+  border: 1px solid rgba(255, 107, 0, 0.25);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(255, 107, 0, 0.15);
+  overflow: hidden;
+}
+
+.referCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff8c32, #ff5500, transparent);
+}
+
+.codeBox {
+  background: #0f1013;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.orangeBtn {
+  background: linear-gradient(90deg, #ff6b00 0%, #ff5000 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 14px 24px;
+  box-shadow: 0 8px 20px -4px rgba(255, 107, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.orangeBtn:hover {
+  background: linear-gradient(90deg, #ff7a1a 0%, #ff5c0d 100%);
+  box-shadow: 0 12px 28px -4px rgba(255, 107, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.orangeBtn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 4px 12px -2px rgba(255, 107, 0, 0.5);
+}
+
+.iconBtnDark {
+  background: #1c1d24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  color: #d1d5db;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.iconBtnDark:hover {
+  background: #272832;
+  color: #ff8c32;
+  border-color: rgba(255, 107, 0, 0.3);
+}
+
+.assetCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2a2c36 0%, #15161b 80%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assetCard {
+  cursor: default;
+}
+
+.assetCard:hover .assetCircle {
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(255, 107, 0, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.25);
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: rgba(18, 19, 24, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 16px 20px 16px;
+  z-index: 50;
+}
+
+.navActivePill {
+  background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
+}
