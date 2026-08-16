@@ -18,12 +18,12 @@ const StatCard = ({ icon: Icon, label, value, color, prefix = '' }) => {
   }, [value]);
 
   return (
-    <div className="stat-card glass rounded-2xl p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3 border border-theme-subtle group cursor-default">
+    <div className="stat-card stat-card-bluish rounded-2xl p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3 group cursor-default">
       <div className="flex items-center justify-between">
         <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center" style={{ background: `${color}18`, border: `1px solid ${color}35` }}>
           <Icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color }} />
         </div>
-        <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:text-[#ff8c32] transition-colors" style={{ color: 'var(--text-muted)' }} />
+        <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:text-[#38bdf8] transition-colors" style={{ color: 'var(--text-muted)' }} />
       </div>
       <div>
         <p ref={valRef} className="text-2xl sm:text-3xl font-black font-mono leading-none tracking-tight truncate" style={{ color: prefix ? color : 'var(--text-primary)' }}>

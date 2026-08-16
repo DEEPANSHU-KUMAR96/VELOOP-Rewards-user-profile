@@ -18,12 +18,16 @@ export const WebAnalyticsPanel = () => {
       <h3 className="text-base font-bold text-theme-primary mb-1">Withdrawal Analytics</h3>
       <p className="text-xs text-theme-muted mb-5">Transaction summary</p>
 
-      <div className="space-y-2">
+      <div className="space-y-2.5">
         {ROW.map(({ key, label, icon: Icon, color }) => (
           <div
             key={key}
-            className="flex items-center justify-between p-3.5 rounded-2xl border transition-all group cursor-default"
-            style={{ background: 'var(--bg-hover)', borderColor: 'var(--border-subtle)' }}
+            className="flex items-center justify-between p-3.5 rounded-2xl border transition-all duration-200 group cursor-default hover:border-sky-500/40 hover:-translate-y-0.5"
+            style={{
+              background: 'linear-gradient(145deg, rgba(16, 26, 48, 0.45) 0%, rgba(10, 16, 30, 0.65) 100%)',
+              borderColor: 'rgba(56, 189, 248, 0.12)',
+              boxShadow: '0 4px 20px -4px rgba(10, 20, 45, 0.3)'
+            }}
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${color}18`, border: `1px solid ${color}30` }}>
