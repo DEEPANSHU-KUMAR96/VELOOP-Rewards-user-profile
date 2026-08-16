@@ -8,6 +8,8 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-3-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-ff6b00?style=for-the-badge&logo=vercel&logoColor=white)](https://veloop-rewards-user-profile.vercel.app/user-profile)
+
 **A premium, fully responsive user profile dashboard for the Veloop Rewards platform — built with React 19, Vite, TailwindCSS v4, and GSAP animations.**
 
 </div>
@@ -32,7 +34,9 @@
 
 ## 🖥️ Preview
 
-> The dashboard features a fixed sidebar navigation on desktop and a bottom tab bar on mobile, with the main content area rendering stats, assets, referral, analytics, and profile info panels.
+> **🔗 [Live Demo → veloop-rewards-user-profile.vercel.app/user-profile](https://veloop-rewards-user-profile.vercel.app/user-profile)**
+
+The dashboard features a fixed sidebar navigation on desktop and a bottom tab bar on mobile, with the main content area rendering stats, assets, referral, analytics, and profile info panels.
 
 ---
 
