@@ -78,13 +78,22 @@ export const UserProfilePage = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="relative z-10 w-72 max-w-[85vw] h-full p-6 flex flex-col" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
-            <div className="flex items-center justify-between gap-2 mb-6">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#ff6b00] to-[#e84d00] flex items-center justify-center shadow-[0_4px_12px_rgba(255,107,0,0.4)]">
-                  <Flame className="w-4.5 h-4.5 text-white" />
+          <div className="relative z-10 w-72 max-w-[85vw] h-full p-6 flex flex-col overflow-y-auto" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
+            <div className="flex items-center justify-between gap-2 mb-6 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 rotate-45 rounded-md border-2 border-amber-400 bg-amber-500/10 flex items-center justify-center shadow-[0_0_14px_rgba(251,191,36,0.4)]">
+                    <div className="w-3.5 h-3.5 rotate-45 border-2 border-amber-300 bg-amber-400/30 rounded-xs" />
+                  </div>
                 </div>
-                <span className="font-black text-lg" style={{ color: 'var(--text-primary)' }}>Veloop<span className="text-[#ff6b00]"> Rewards</span></span>
+                <div className="flex flex-col">
+                  <span className="font-extrabold text-[15px] tracking-wider leading-none text-white">
+                    VELOOP
+                  </span>
+                  <span className="text-[9px] tracking-[0.22em] font-bold text-gray-400 leading-tight mt-1">
+                    REWARDS
+                  </span>
+                </div>
               </div>
             </div>
             <Sidebar mobile={true} onClose={() => setMobileMenuOpen(false)} />
