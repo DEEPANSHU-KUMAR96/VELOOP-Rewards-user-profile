@@ -53,10 +53,10 @@ export const WebAssetsPanel = () => {
   const { userData } = useProfile();
 
   return (
-    <div className="glass rounded-3xl p-6 border border-theme-subtle">
+    <div className="glass rounded-3xl p-5 sm:p-6 border border-theme-subtle">
       <h3 className="text-base font-bold text-theme-primary mb-1">Your Assets</h3>
-      <p className="text-xs text-theme-muted mb-5">Real-time portfolio overview</p>
-      <div className="flex gap-4">
+      <p className="text-xs text-theme-muted mb-4 sm:mb-5">Real-time portfolio overview</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {ASSETS.map(({ key, ...rest }) => (
           <AssetCard key={key} value={userData.assets[key]} {...rest} />
         ))}

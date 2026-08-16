@@ -26,23 +26,38 @@ const NAV_ITEMS = [
   { id: 'boost',     label: 'Boost XP',  icon: Zap },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ mobile = false, onClose }) => {
   const { activeTab, setActiveTab, showToast, userData, setSettingsOpen } = useProfile();
 
   const handleTab = (id) => {
     setActiveTab(id);
     if (id !== 'account') showToast(`Navigating to ${id.charAt(0).toUpperCase() + id.slice(1)}...`, 'info');
+    if (onClose) onClose();
+  };
+
+  const handleOpenSettings = () => {
+    setSettingsOpen(true);
+    if (onClose) onClose();
   };
 
   return (
     <aside
-      className="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 z-40 pt-7 pb-6 px-4 transition-all duration-300 theme-sidebar"
-      style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-subtle)' }}
+      className={
+        mobile
+          ? "flex flex-col h-full w-full z-40 transition-all duration-300"
+          : "hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 z-40 pt-7 pb-6 px-4 transition-all duration-300 theme-sidebar"
+      }
+      style={{
+        background: mobile ? 'transparent' : 'var(--bg-sidebar)',
+        borderRight: mobile ? 'none' : '1px solid var(--border-subtle)'
+      }}
     >
-      {/* Logo */}
-      <div className="px-2 mb-10">
-        <LOGO />
-      </div>
+      {/* Logo (only shown on desktop sidebar) */}
+      {!mobile && (
+        <div className="px-2 mb-10">
+          <LOGO />
+        </div>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1">
@@ -52,7 +67,7 @@ export const Sidebar = () => {
           return (
             <button
               key={id}
-              id={`sidebar-nav-${id}`}
+              id={`sidebar-nav-${id}${mobile ? '-mobile' : ''}`}
               onClick={() => handleTab(id)}
               className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 cursor-pointer group border-l-[3px]"
               style={{
@@ -69,7 +84,7 @@ export const Sidebar = () => {
                 style={{ color: active ? '#ff6b00' : 'var(--text-muted)' }}
               />
               {label}
-              {active && <ChevronRight className="w-3.5 h-3.5 ml-auto" style={{ color: 'rgba(255,140,50,0.6)' }} />}
+              {active && <ChevronRight className="w-3.5 h-3.5 ml-auto" style={{ color: 'rgba(255,107,0,0.6)' }} />}
             </button>
           );
         })}
@@ -78,7 +93,7 @@ export const Sidebar = () => {
       {/* User footer */}
       <div className="mt-6 pt-5" style={{ borderTop: '1px solid var(--border-subtle)' }}>
         <button
-          onClick={() => setSettingsOpen(true)}
+          onClick={handleOpenSettings}
           className="w-full flex items-center gap-3 p-3 rounded-2xl transition-all cursor-pointer group"
           onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-hover)'}
           onMouseLeave={e => e.currentTarget.style.background = 'transparent'}

@@ -35,13 +35,13 @@ export const HeroBanner = () => {
       <div className="absolute bottom-0 left-20 w-40 h-40 bg-[#7c3aed]/10 rounded-full blur-[50px] pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 h-full min-h-[280px]">
+      <div className="relative z-10 p-5 sm:p-8 flex flex-col h-full min-h-[280px] gap-5">
 
-        {/* Left — User info */}
-        <div className="flex items-end gap-5 sm:gap-6">
+        {/* Top row — Avatar + User info */}
+        <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
           {/* Avatar with animated ring */}
           <div className="relative shrink-0">
-            <div className="gsap-avatar w-24 h-24 sm:w-28 sm:h-28 rounded-2xl p-[3px] bg-gradient-to-br from-[#ff9e42] via-[#ff5500] to-[#7c2d12] shadow-[0_0_30px_rgba(255,107,0,0.4)] glow-ring">
+            <div className="gsap-avatar w-20 h-20 sm:w-28 sm:h-28 rounded-2xl p-[3px] bg-gradient-to-br from-[#ff9e42] via-[#ff5500] to-[#7c2d12] shadow-[0_0_30px_rgba(255,107,0,0.4)] glow-ring">
               <div className="w-full h-full rounded-[14px] overflow-hidden bg-[#111]">
                 <img
                   src={userData.avatar}
@@ -56,60 +56,60 @@ export const HeroBanner = () => {
           </div>
 
           {/* Text info */}
-          <div className="pb-1">
-            <div className="flex items-center gap-2.5 flex-wrap mb-2">
+          <div className="text-center sm:text-left w-full min-w-0">
+            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start mb-2">
               <Badge variant="level" label={`Level ${userData.level}`} size="md" />
               {userData.isVerified && <Badge variant="verified" size="md" />}
               {userData.level >= 5 && <Badge variant="pro" label={userData.tier} size="sm" />}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none mb-1">
+            <h1 className="text-xl sm:text-3xl font-black text-white tracking-tight leading-none mb-1 break-all">
               {userData.username}
             </h1>
-            <p className="text-sm text-gray-400">
-              Member since {userData.memberSince} &middot; <span className="text-[#ff8c32]">{userData.email}</span>
+            <p className="text-xs sm:text-sm text-gray-400">
+              Member since {userData.memberSince} &middot; <span className="text-[#ff8c32] break-all">{userData.email}</span>
             </p>
+          </div>
+        </div>
 
-            {/* XP bar inline */}
-            <div className="mt-4 w-64 sm:w-80">
-              <div className="flex justify-between text-xs text-gray-400 mb-1.5">
-                <span>XP Progress</span>
-                <span className="text-[#ff8c32] font-bold font-mono">{userData.xp} / {userData.maxExp}</span>
-              </div>
-              <div
-                className="relative h-2.5 bg-white/[0.08] rounded-full overflow-hidden cursor-pointer"
-                onClick={() => gainXP(25)}
-                title="Click to gain 25 XP"
-              >
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#ff8c32] to-[#ff4800] transition-all duration-700"
-                  style={{ width: `${percentage}%` }}
-                >
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white progress-spark" />
-                </div>
-              </div>
+        {/* XP bar — full width */}
+        <div className="w-full">
+          <div className="flex justify-between text-xs text-gray-400 mb-1.5">
+            <span>XP Progress</span>
+            <span className="text-[#ff8c32] font-bold font-mono">{userData.xp} / {userData.maxExp}</span>
+          </div>
+          <div
+            className="relative h-2.5 bg-white/[0.08] rounded-full overflow-hidden cursor-pointer"
+            onClick={() => gainXP(25)}
+            title="Click to gain 25 XP"
+          >
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#ff8c32] to-[#ff4800] transition-all duration-700"
+              style={{ width: `${percentage}%` }}
+            >
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white progress-spark" />
             </div>
           </div>
         </div>
 
-        {/* Right — Action buttons */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Action buttons — responsive row */}
+        <div className="flex items-center gap-2.5 flex-wrap">
           <button
             onClick={() => gainXP(25)}
-            className="btn-orange flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white font-bold text-sm cursor-pointer"
+            className="btn-orange flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white font-bold text-sm cursor-pointer flex-1 sm:flex-none justify-center"
           >
             <Zap className="w-4 h-4" />
             Gain XP
           </button>
           <button
             onClick={() => setWithdrawOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/[0.06] border border-white/[0.1] text-gray-200 font-bold text-sm hover:bg-white/[0.10] hover:border-white/[0.18] transition-all cursor-pointer active:scale-95"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/[0.1] text-gray-200 font-bold text-sm hover:bg-white/[0.10] hover:border-white/[0.18] transition-all cursor-pointer active:scale-95 flex-1 sm:flex-none justify-center"
           >
             <ArrowDownToLine className="w-4 h-4" />
             Withdraw
           </button>
           <button
             onClick={() => setSettingsOpen(true)}
-            className="w-10 h-10 rounded-2xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.10] transition-all cursor-pointer"
+            className="w-10 h-10 rounded-2xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.10] transition-all cursor-pointer shrink-0"
           >
             <Settings className="w-4.5 h-4.5" />
           </button>

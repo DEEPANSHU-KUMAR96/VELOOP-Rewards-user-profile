@@ -4,12 +4,12 @@ import { Shield, Mail, Calendar, Hash, Zap, Award } from 'lucide-react';
 import { Badge } from '../common/Badge';
 
 const InfoRow = ({ icon: Icon, label, value, color = '#6b7280' }) => (
-  <div className="flex items-center justify-between py-3.5 last:border-0" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-    <div className="flex items-center gap-2.5" style={{ color: 'var(--text-muted)' }}>
+  <div className="flex items-center justify-between gap-3 py-3.5 last:border-0" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+    <div className="flex items-center gap-2.5 shrink-0" style={{ color: 'var(--text-muted)' }}>
       <Icon className="w-4 h-4 shrink-0" style={{ color }} />
       <span className="text-sm font-medium">{label}</span>
     </div>
-    <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{value}</span>
+    <span className="text-sm font-semibold truncate text-right" style={{ color: 'var(--text-primary)' }}>{value}</span>
   </div>
 );
 

@@ -63,23 +63,23 @@ export const WebReferralPanel = () => {
       {/* Code Box */}
       <div className="rounded-2xl p-4 mb-4" style={{ background: 'var(--bg-input)', border: '1px solid var(--border-strong)' }}>
         <p className="text-[10px] uppercase tracking-widest mb-2" style={{ color: 'var(--text-muted)' }}>Your Referral Code</p>
-        <div className="flex items-center justify-between">
-          <p className="text-[#ff8c32] font-black text-3xl code-text tracking-[0.3em]">{userData.referral.code}</p>
-          <span className="text-[11px] bg-[#ff8c32]/10 text-[#ff8c32] border border-[#ff8c32]/20 rounded-xl px-2.5 py-1 font-semibold flex items-center gap-1">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-[#ff8c32] font-black text-2xl sm:text-3xl code-text tracking-widest sm:tracking-[0.3em] truncate">{userData.referral.code}</p>
+          <span className="text-[11px] bg-[#ff8c32]/10 text-[#ff8c32] border border-[#ff8c32]/20 rounded-xl px-2.5 py-1 font-semibold flex items-center gap-1 shrink-0">
             <Zap className="w-3 h-3" /> {userData.referral.bonusPercent}%
           </span>
         </div>
       </div>
 
       {/* Actions */}
-      <div className="flex gap-3">
-        <button onClick={handleCopyCode} className="flex-1 btn-orange flex items-center justify-center gap-2 py-3 rounded-2xl text-white font-bold text-sm cursor-pointer">
-          {copied ? <><CheckCircle2 className="w-4 h-4" /> Copied!</> : <><Copy className="w-4 h-4" /> Copy Code</>}
+      <div className="flex gap-2 sm:gap-3">
+        <button onClick={handleCopyCode} className="flex-1 btn-orange flex items-center justify-center gap-2 py-3 rounded-2xl text-white font-bold text-sm cursor-pointer min-w-0">
+          {copied ? <><CheckCircle2 className="w-4 h-4 shrink-0" /> <span className="truncate">Copied!</span></> : <><Copy className="w-4 h-4 shrink-0" /> <span className="truncate">Copy Code</span></>}
         </button>
-        <button onClick={handleShare} className="w-11 h-11 rounded-2xl glass border border-white/[0.08] flex items-center justify-center text-gray-300 hover:text-[#ff8c32] hover:border-[#ff8c32]/30 transition-all cursor-pointer">
+        <button onClick={handleShare} className="w-11 h-11 rounded-2xl glass border border-white/[0.08] flex items-center justify-center text-gray-300 hover:text-[#ff8c32] hover:border-[#ff8c32]/30 transition-all cursor-pointer shrink-0">
           <Share2 className="w-4.5 h-4.5" />
         </button>
-        <button onClick={() => copy(userData.referral.shareUrl)} className="w-11 h-11 rounded-2xl glass border border-white/[0.08] flex items-center justify-center text-gray-300 hover:text-[#ff8c32] hover:border-[#ff8c32]/30 transition-all cursor-pointer">
+        <button onClick={() => copy(userData.referral.shareUrl)} className="w-11 h-11 rounded-2xl glass border border-white/[0.08] flex items-center justify-center text-gray-300 hover:text-[#ff8c32] hover:border-[#ff8c32]/30 transition-all cursor-pointer shrink-0">
           <Link2 className="w-4.5 h-4.5" />
         </button>
       </div>

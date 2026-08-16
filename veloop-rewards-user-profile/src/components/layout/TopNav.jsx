@@ -13,10 +13,10 @@ export const TopNav = ({ onMenuToggle, menuOpen }) => {
       className="sticky top-0 z-30 w-full border-b"
       style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
 
         {/* Left: hamburger + mobile logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           <button
             onClick={onMenuToggle}
             className="lg:hidden p-2 rounded-xl transition-all cursor-pointer"
@@ -27,11 +27,11 @@ export const TopNav = ({ onMenuToggle, menuOpen }) => {
             {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#ff6b00] to-[#e84d00] flex items-center justify-center">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#ff6b00] to-[#e84d00] flex items-center justify-center shrink-0">
               <Flame className="w-4 h-4 text-white" />
             </div>
-            <span className="font-black text-base" style={{ color: 'var(--text-primary)' }}>
+            <span className="font-black text-sm sm:text-base whitespace-nowrap" style={{ color: 'var(--text-primary)' }}>
               Veloop<span className="text-[#ff6b00]"> Rewards</span>
             </span>
           </div>

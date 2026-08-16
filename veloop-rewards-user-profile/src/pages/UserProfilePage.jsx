@@ -77,14 +77,16 @@ export const UserProfilePage = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="relative z-10 w-64 h-full p-6 flex flex-col" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#ff6b00] to-[#e84d00] flex items-center justify-center">
-                <Flame className="w-4.5 h-4.5 text-white" />
+          <div className="relative z-10 w-72 max-w-[85vw] h-full p-6 flex flex-col" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-strong)' }}>
+            <div className="flex items-center justify-between gap-2 mb-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#ff6b00] to-[#e84d00] flex items-center justify-center shadow-[0_4px_12px_rgba(255,107,0,0.4)]">
+                  <Flame className="w-4.5 h-4.5 text-white" />
+                </div>
+                <span className="font-black text-lg" style={{ color: 'var(--text-primary)' }}>Veloop<span className="text-[#ff6b00]"> Rewards</span></span>
               </div>
-              <span className="text-white font-black text-lg">Veloop<span className="text-[#ff6b00]"> Rewards</span></span>
             </div>
-            <Sidebar />
+            <Sidebar mobile={true} onClose={() => setMobileMenuOpen(false)} />
           </div>
         </div>
       )}
