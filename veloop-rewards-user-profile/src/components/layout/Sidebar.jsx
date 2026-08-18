@@ -26,16 +26,16 @@ const VeloopLogo = () => (
 );
 
 const NAV_ITEMS = [
-  { id: 'overview',     label: 'Overview',       icon: Home },
-  { id: 'rewards',      label: 'Rewards',        icon: Gift },
-  { id: 'achievements', label: 'Achievements',   icon: Trophy },
-  { id: 'activity',     label: 'Activity',       icon: FileText },
-  { id: 'wallet',       label: 'Wallet',         icon: Wallet },
-  { id: 'referrals',    label: 'Referrals',      icon: Users },
-  { id: 'withdrawals',  label: 'Withdrawals',    icon: ArrowDownToLine },
-  { id: 'leaderboard',  label: 'Leaderboard',    icon: Medal },
-  { id: 'settings',     label: 'Settings',       icon: Settings },
-  { id: 'support',      label: 'Help & Support', icon: HelpCircle },
+  { id: 'overview', label: 'Overview', icon: Home },
+  { id: 'rewards', label: 'Rewards', icon: Gift },
+  { id: 'achievements', label: 'Achievements', icon: Trophy },
+  { id: 'activity', label: 'Activity', icon: FileText },
+  { id: 'wallet', label: 'Wallet', icon: Wallet },
+  { id: 'referrals', label: 'Referrals', icon: Users },
+  { id: 'withdrawals', label: 'Withdrawals', icon: ArrowDownToLine },
+  { id: 'leaderboard', label: 'Leaderboard', icon: Medal },
+  { id: 'settings', label: 'Settings', icon: Settings },
+  { id: 'support', label: 'Help & Support', icon: HelpCircle },
 ];
 
 export const Sidebar = ({ mobile = false, onClose }) => {
@@ -86,11 +86,10 @@ export const Sidebar = ({ mobile = false, onClose }) => {
                 key={id}
                 id={`sidebar-nav-${id}${mobile ? '-mobile' : ''}`}
                 onClick={() => handleTab(id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 cursor-pointer text-left ${
-                  active
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 cursor-pointer text-left ${active
                     ? 'text-white border border-indigo-500/40 shadow-[0_0_16px_rgba(99,102,241,0.25)]'
                     : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.04]'
-                }`}
+                  }`}
                 style={{
                   background: active
                     ? 'linear-gradient(135deg, rgba(79, 70, 229, 0.4) 0%, rgba(124, 58, 237, 0.3) 100%)'
@@ -98,9 +97,8 @@ export const Sidebar = ({ mobile = false, onClose }) => {
                 }}
               >
                 <Icon
-                  className={`w-4 h-4 shrink-0 transition-colors ${
-                    active ? 'text-indigo-300' : 'text-gray-400 group-hover:text-gray-300'
-                  }`}
+                  className={`w-4 h-4 shrink-0 transition-colors ${active ? 'text-indigo-300' : 'text-gray-400 group-hover:text-gray-300'
+                    }`}
                 />
                 <span className="flex-1 truncate">{label}</span>
                 {active && (
