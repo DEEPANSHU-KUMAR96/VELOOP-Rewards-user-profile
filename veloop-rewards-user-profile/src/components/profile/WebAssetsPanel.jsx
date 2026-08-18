@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Gem } from 'lucide-react';
+import { Gem, Info } from 'lucide-react';
 import { useProfile } from '../../context/ProfileContext';
 import { animateCounter } from '../../hooks/useGsapAnimations';
 
@@ -50,12 +50,28 @@ const AssetCard = ({ icon: Icon, label, sublabel, value, color, glow }) => {
 };
 
 export const WebAssetsPanel = () => {
-  const { userData } = useProfile();
+  const { userData, showToast } = useProfile();
 
   return (
     <div className="glass rounded-3xl p-5 sm:p-6 border border-theme-subtle">
-      <h3 className="text-base font-bold text-theme-primary mb-1">Your Assets</h3>
-      <p className="text-xs text-theme-muted mb-4 sm:mb-5">Real-time portfolio overview</p>
+      <div className="flex items-center justify-between gap-2 mb-4 sm:mb-5">
+        <div className="flex items-center gap-2">
+          <h3 className="text-base font-bold text-theme-primary">Your Rewards</h3>
+          <button
+            onClick={() => showToast('ℹ️ Rewards are earned by participating in challenges and referrals.', 'info')}
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+            title="Rewards Info"
+          >
+            <Info className="w-4 h-4" />
+          </button>
+        </div>
+        <button
+          onClick={() => showToast('Navigating to All Rewards...', 'info')}
+          className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
+        >
+          View All Rewards →
+        </button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {ASSETS.map(({ key, ...rest }) => (
           <AssetCard key={key} value={userData.assets[key]} {...rest} />

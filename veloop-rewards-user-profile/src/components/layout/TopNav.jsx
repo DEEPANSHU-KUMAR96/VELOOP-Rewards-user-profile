@@ -57,59 +57,65 @@ export const TopNav = ({ onMenuToggle, menuOpen }) => {
         </div>
 
         {/* Right: actions */}
-        <div className="flex items-center gap-2">
-
-          {/* Dark/Light toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Search button (mobile) */}
           <button
-            onClick={toggle}
-            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="relative w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer border overflow-hidden group"
-            style={{
-              background: isDark ? 'rgba(255,107,0,0.08)' : 'rgba(255,180,0,0.10)',
-              borderColor: isDark ? 'rgba(255,107,0,0.25)' : 'rgba(255,180,0,0.30)',
-              color: isDark ? '#ff8c32' : '#f59e0b',
-            }}
+            onClick={() => showToast('🔍 Search activated', 'info')}
+            className="sm:hidden w-9 h-9 rounded-xl flex items-center justify-center border border-white/[0.08] text-slate-300 hover:text-white transition-colors cursor-pointer"
+            style={{ background: 'rgba(255,255,255,0.03)' }}
           >
-            {/* Animated background sweep on hover */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-              style={{ background: isDark ? 'rgba(255,107,0,0.15)' : 'rgba(255,200,0,0.15)' }}
-            />
-            <span className="relative theme-toggle-icon entering">
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </span>
+            <Search className="w-4 h-4" />
           </button>
 
-          {/* Bell */}
+          {/* Bell with red badge '3' */}
           <button
-            onClick={() => showToast('🔔 No new notifications', 'info')}
-            className="relative w-9 h-9 rounded-xl flex items-center justify-center border transition-all cursor-pointer"
-            style={{ background: 'var(--bg-hover)', borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
-            onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'var(--bg-card)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'var(--bg-hover)'; }}
+            onClick={() => showToast('🔔 You have 3 unread notifications', 'info')}
+            className="relative w-9 h-9 rounded-xl flex items-center justify-center border border-white/[0.08] text-slate-300 hover:text-white transition-colors cursor-pointer"
+            style={{ background: 'rgba(255,255,255,0.03)' }}
+            title="Notifications"
           >
             <Bell className="w-4 h-4" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#ff6b00] border shadow-[0_0_6px_rgba(255,107,0,0.8)]" style={{ borderColor: 'var(--bg-base)' }} />
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] font-bold text-white flex items-center justify-center shadow-[0_0_8px_rgba(244,63,94,0.8)]">
+              3
+            </span>
           </button>
 
-          {/* Avatar */}
+          {/* Gift Icon */}
+          <button
+            onClick={() => showToast('🎁 Daily gift box available to claim!', 'celebration')}
+            className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/[0.08] text-slate-300 hover:text-white transition-colors cursor-pointer"
+            style={{ background: 'rgba(255,255,255,0.03)' }}
+            title="Daily Gift"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-purple-300">
+              <rect x="3" y="8" width="18" height="4" rx="1"/>
+              <path d="M12 8v13"/>
+              <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+              <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+            </svg>
+          </button>
+
+          {/* Profile Chip: Avatar + Ayan Alam + Level 04 + Chevron */}
           <button
             onClick={() => setSettingsOpen(true)}
-            className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-2xl border transition-all cursor-pointer"
-            style={{ borderColor: 'var(--border-subtle)', background: 'var(--bg-hover)' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-card)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-hover)'}
+            className="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-2xl border border-white/[0.1] transition-all cursor-pointer hover:border-purple-500/40"
+            style={{ background: 'rgba(255,255,255,0.04)' }}
           >
             <img
-              src={userData.avatar}
-              alt={userData.username}
-              className="w-7 h-7 rounded-full object-cover border border-[#ff8c32]/30"
+              src={userData.avatar || '/avatar.jpg'}
+              alt={userData.displayName || userData.username}
+              className="w-7 h-7 rounded-full object-cover border border-purple-400/50"
               onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=60&auto=format&fit=crop'; }}
             />
-            <span className="hidden sm:block text-sm font-semibold max-w-[100px] truncate" style={{ color: 'var(--text-primary)' }}>
-              {userData.username}
-            </span>
-            <ChevronDown className="w-3.5 h-3.5" style={{ color: 'var(--text-muted)' }} />
+            <div className="hidden sm:flex flex-col text-left">
+              <span className="text-xs font-bold text-white leading-tight">
+                {userData.displayName || 'Ayan Alam'}
+              </span>
+              <span className="text-[10px] font-semibold text-purple-300/80 leading-tight">
+                Level {String(userData.level || 4).padStart(2, '0')}
+              </span>
+            </div>
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           </button>
         </div>
       </div>
