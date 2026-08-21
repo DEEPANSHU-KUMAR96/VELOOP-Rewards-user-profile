@@ -59,41 +59,45 @@ export const WebReferralPanel = () => {
     {
       id: 'withdraw',
       label: 'Withdraw',
+      sublabel: 'Cash out',
       icon: Wallet,
       color: '#10b981',
-      glow: 'rgba(16,185,129,0.3)',
-      border: 'rgba(16,185,129,0.25)',
-      bg: 'rgba(16,185,129,0.08)',
+      glow: 'rgba(16,185,129,0.35)',
+      border: 'rgba(16,185,129,0.3)',
+      bg: 'rgba(16,185,129,0.07)',
       action: () => setWithdrawOpen(true),
     },
     {
       id: 'leaderboard',
       label: 'Rank',
+      sublabel: 'Leaderboard',
       icon: Trophy,
       color: '#f59e0b',
-      glow: 'rgba(245,158,11,0.3)',
-      border: 'rgba(245,158,11,0.25)',
-      bg: 'rgba(245,158,11,0.08)',
+      glow: 'rgba(245,158,11,0.35)',
+      border: 'rgba(245,158,11,0.3)',
+      bg: 'rgba(245,158,11,0.07)',
       action: () => showToast('🏆 Leaderboard coming soon!', 'info'),
     },
     {
       id: 'rewards',
       label: 'Rewards',
+      sublabel: 'Earn more',
       icon: Gift,
       color: '#8b5cf6',
-      glow: 'rgba(139,92,246,0.3)',
-      border: 'rgba(139,92,246,0.25)',
-      bg: 'rgba(139,92,246,0.08)',
+      glow: 'rgba(139,92,246,0.35)',
+      border: 'rgba(139,92,246,0.3)',
+      bg: 'rgba(139,92,246,0.07)',
       action: () => showToast('🎁 Rewards center coming soon!', 'info'),
     },
     {
       id: 'achievements',
       label: 'Badges',
+      sublabel: 'Achievements',
       icon: Star,
       color: '#ff6b00',
-      glow: 'rgba(255,107,0,0.3)',
-      border: 'rgba(255,107,0,0.25)',
-      bg: 'rgba(255,107,0,0.08)',
+      glow: 'rgba(255,107,0,0.35)',
+      border: 'rgba(255,107,0,0.3)',
+      bg: 'rgba(255,107,0,0.07)',
       action: () => showToast('⭐ Achievements coming soon!', 'info'),
     },
   ];
@@ -213,51 +217,66 @@ export const WebReferralPanel = () => {
 
       {/* ── Quick Actions Card ────────────────────────────────────── */}
       <div
-        className="rounded-3xl p-5 relative overflow-hidden"
+        className="rounded-3xl p-5 sm:p-6 relative overflow-hidden"
         style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border-card)',
-          boxShadow: '0 8px 24px -6px rgba(0,0,0,0.4)',
+          boxShadow: '0 8px 32px -6px rgba(0,0,0,0.5)',
         }}
       >
-        {/* Subtle ambient top glow */}
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-40 h-16 bg-[#7c3aed]/15 rounded-full pointer-events-none" style={{ filter: 'blur(24px)' }} />
+        {/* Ambient background glow */}
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-56 h-24 bg-[#7c3aed]/20 rounded-full pointer-events-none" style={{ filter: 'blur(32px)' }} />
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#ff6b00]/10 rounded-full pointer-events-none" style={{ filter: 'blur(30px)' }} />
 
         {/* Header */}
-        <div className="flex items-center gap-2.5 mb-4 relative z-10">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(124,58,237,0.12)', border: '1px solid rgba(124,58,237,0.22)' }}>
-            <Zap className="w-4 h-4" style={{ color: '#a78bfa' }} />
+        <div className="flex items-center gap-3 mb-5 relative z-10">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center shadow-[0_0_14px_rgba(124,58,237,0.4)]"
+            style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.25) 0%, rgba(124,58,237,0.10) 100%)', border: '1px solid rgba(124,58,237,0.35)' }}
+          >
+            <Zap className="w-5 h-5" style={{ color: '#a78bfa' }} />
           </div>
           <div>
-            <h3 className="font-bold text-theme-primary text-sm">Quick Actions</h3>
-            <p className="text-[11px] text-theme-secondary">Go here, get there quick &amp; fast</p>
+            <h3 className="font-bold text-white text-base">Quick Actions</h3>
+            <p className="text-xs text-gray-400 mt-0.5">Go here, get there quick &amp; fast</p>
           </div>
         </div>
 
-        {/* Actions Grid */}
-        <div className="grid grid-cols-4 gap-2 relative z-10">
-          {QUICK_ACTIONS.map(({ id, label, icon: Icon, color, glow, border, bg, action }) => (
+        {/* Actions Grid — 2x2 on mobile, 4-col on sm+ */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 relative z-10">
+          {QUICK_ACTIONS.map(({ id, label, sublabel, icon: Icon, color, glow, border, bg, action }) => (
             <button
               key={id}
               onClick={action}
-              className="flex flex-col items-center gap-2 py-3 px-1 rounded-2xl cursor-pointer transition-all duration-200 hover:-translate-y-1 active:scale-95 group"
+              className="group flex flex-col items-center gap-3 py-5 px-3 rounded-2xl cursor-pointer transition-all duration-250 hover:-translate-y-1.5 active:scale-95 relative overflow-hidden"
               style={{
                 background: bg,
                 border: `1px solid ${border}`,
               }}
             >
-              {/* Icon circle */}
+              {/* Hover shimmer */}
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                style={{ background: `radial-gradient(circle at 50% 0%, ${color}18 0%, transparent 70%)` }}
+              />
+
+              {/* Icon badge */}
+              <div
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center transition-all duration-250 group-hover:scale-110 group-hover:shadow-lg relative z-10"
                 style={{
-                  background: `linear-gradient(135deg, ${color}22 0%, ${color}10 100%)`,
-                  border: `1px solid ${border}`,
-                  boxShadow: `0 4px 14px -4px ${glow}`,
+                  background: `linear-gradient(135deg, ${color}25 0%, ${color}10 100%)`,
+                  border: `1.5px solid ${border}`,
+                  boxShadow: `0 6px 18px -4px ${glow}`,
                 }}
               >
-                <Icon className="w-4.5 h-4.5" style={{ color }} />
+                <Icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color }} />
               </div>
-              <span className="text-[11px] font-semibold" style={{ color: 'var(--text-secondary)' }}>{label}</span>
+
+              {/* Label */}
+              <div className="text-center relative z-10">
+                <p className="text-xs sm:text-sm font-bold text-white leading-tight">{label}</p>
+                {sublabel && <p className="text-[10px] sm:text-[11px] mt-0.5" style={{ color: `${color}cc` }}>{sublabel}</p>}
+              </div>
             </button>
           ))}
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useProfile } from '../../context/ProfileContext';
 import {
-  Check, Copy, Info, Calendar, Shield, Crown, Zap
+  Check, Copy, Info, Calendar, Crown, Zap, Pencil
 } from 'lucide-react';
 
 export const HeroBanner = () => {
@@ -69,9 +69,9 @@ export const HeroBanner = () => {
                   </div>
                 </div>
               </div>
-              {/* Shield badge */}
-              <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-[#1d1245] border-2 border-purple-400/90 shadow-[0_0_10px_rgba(168,85,247,0.6)] flex items-center justify-center pointer-events-none rotate-6">
-                <Shield className="w-3 h-3 sm:w-4 sm:h-4 fill-purple-400/30 text-purple-300" />
+            {/* Pencil edit badge */}
+              <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#ff6b00] to-[#e65100] border-2 border-[#0a0820] shadow-[0_0_10px_rgba(255,107,0,0.6)] flex items-center justify-center pointer-events-none transition-transform group-hover/avatar:scale-110">
+                <Pencil className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white" />
               </div>
             </div>
 

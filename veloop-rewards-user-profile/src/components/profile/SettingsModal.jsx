@@ -1,8 +1,50 @@
-import React from 'react';
-import { X, Bell, Shield, LogOut, ChevronRight, Moon, Smartphone, HelpCircle, Pencil } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Bell, Shield, LogOut, ChevronRight, Smartphone, HelpCircle, Pencil, Mail, Users, BarChart3 } from 'lucide-react';
 import { Modal } from '../common/Modal';
 import { useProfile } from '../../context/ProfileContext';
 
+/* ── Toggle Switch ── */
+const ToggleSwitch = ({ enabled, onToggle, color = '#ff6b00' }) => (
+  <button
+    onClick={onToggle}
+    className="relative w-11 h-6 rounded-full transition-all duration-300 cursor-pointer shrink-0 focus:outline-none"
+    style={{
+      background: enabled
+        ? `linear-gradient(135deg, ${color} 0%, ${color}cc 100%)`
+        : 'rgba(255,255,255,0.1)',
+      border: enabled ? `1px solid ${color}80` : '1px solid rgba(255,255,255,0.12)',
+      boxShadow: enabled ? `0 0 10px ${color}55` : 'none',
+    }}
+  >
+    <span
+      className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300"
+      style={{ left: enabled ? '22px' : '2px' }}
+    />
+  </button>
+);
+
+/* ── Notification Toggle Row ── */
+const NotifRow = ({ icon: Icon, label, sublabel, color, enabled, onToggle }) => (
+  <div className="flex items-center justify-between gap-3 py-3 px-3.5 rounded-xl transition-all duration-200 hover:bg-white/[0.03]"
+    style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}
+  >
+    <div className="flex items-center gap-3 min-w-0 flex-1">
+      <div
+        className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+        style={{ background: `${color}15`, border: `1px solid ${color}30` }}
+      >
+        <Icon className="w-3.5 h-3.5" style={{ color }} />
+      </div>
+      <div className="min-w-0">
+        <p className="text-xs font-semibold text-gray-100 truncate">{label}</p>
+        {sublabel && <p className="text-[10px] text-gray-500 mt-0.5 truncate">{sublabel}</p>}
+      </div>
+    </div>
+    <ToggleSwitch enabled={enabled} onToggle={onToggle} color={color} />
+  </div>
+);
+
+/* ── Settings Row ── */
 const SettingRow = ({ icon: Icon, label, sublabel, action, color = '#ff8c32', danger = false }) => (
   <button
     onClick={action}
@@ -31,10 +73,19 @@ const SettingRow = ({ icon: Icon, label, sublabel, action, color = '#ff8c32', da
 export const SettingsModal = () => {
   const { settingsOpen, setSettingsOpen, showToast, userData, setAvatarModalOpen } = useProfile();
 
+  /* Notification toggles state */
+  const [notifs, setNotifs] = useState({
+    push: true,
+    email: false,
+    referral: true,
+    weekly: false,
+  });
+  const [notifExpanded, setNotifExpanded] = useState(false);
+
+  const toggle = (key) => setNotifs((prev) => ({ ...prev, [key]: !prev[key] }));
+
   const actions = {
-    notifications: () => showToast('🔔 Notification settings coming soon!', 'info'),
     security: () => showToast('🔒 Security settings coming soon!', 'info'),
-    appearance: () => showToast('🌙 Dark mode is always on — you\'re stylish!', 'info'),
     device: () => showToast('📱 Device management coming soon!', 'info'),
     help: () => showToast('💬 Help center coming soon!', 'info'),
     logout: () => {
@@ -58,7 +109,7 @@ export const SettingsModal = () => {
         <div className="relative z-10 flex items-center justify-between gap-3 sm:gap-4">
           {/* Avatar + Info */}
           <div className="flex items-center gap-3.5 min-w-0 flex-1">
-            {/* Avatar container with fixed aspect ratio */}
+            {/* Avatar container */}
             <div
               className="relative shrink-0 cursor-pointer group/avatar"
               onClick={handleOpenAvatarModal}
@@ -111,10 +162,79 @@ export const SettingsModal = () => {
       </div>
 
       {/* Settings groups */}
-      <div className="space-y-1 mb-4">
+      <div className="space-y-2 mb-4">
         <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold px-3 mb-2">Preferences</p>
-        <SettingRow icon={Bell} label="Notifications" sublabel="Push & email alerts" action={actions.notifications} />
-        <SettingRow icon={Moon} label="Appearance" sublabel="Dark mode active" action={actions.appearance} color="#a78bfa" />
+
+        {/* ── Notifications (expandable) ── */}
+        <div
+          className="rounded-2xl overflow-hidden border border-transparent hover:border-white/[0.06] transition-all"
+          style={{ background: notifExpanded ? 'rgba(255,255,255,0.025)' : 'transparent' }}
+        >
+          <button
+            onClick={() => setNotifExpanded((v) => !v)}
+            className="w-full flex items-center justify-between gap-3 p-3 cursor-pointer group"
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:scale-105"
+                style={{ background: '#ff8c3218', border: '1px solid #ff8c3235' }}
+              >
+                <Bell className="w-4.5 h-4.5" style={{ color: '#ff8c32' }} />
+              </div>
+              <div className="text-left min-w-0">
+                <p className="font-semibold text-sm text-gray-100 truncate">Notifications</p>
+                <p className="text-[11px] text-gray-400 mt-0.5 truncate">
+                  {[notifs.push && 'Push', notifs.email && 'Email'].filter(Boolean).join(' & ') || 'All off'}
+                </p>
+              </div>
+            </div>
+            <ChevronRight
+              className={`w-4 h-4 shrink-0 text-gray-500 transition-transform duration-200 ${notifExpanded ? 'rotate-90' : ''}`}
+            />
+          </button>
+
+          {/* Expanded notification panel */}
+          {notifExpanded && (
+            <div
+              className="mx-3 mb-3 rounded-xl overflow-hidden"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+            >
+              <NotifRow
+                icon={Bell}
+                label="Push Alerts"
+                sublabel="Receive in-app notifications"
+                color="#ff8c32"
+                enabled={notifs.push}
+                onToggle={() => toggle('push')}
+              />
+              <NotifRow
+                icon={Mail}
+                label="Email Digest"
+                sublabel="Daily activity summary"
+                color="#60a5fa"
+                enabled={notifs.email}
+                onToggle={() => toggle('email')}
+              />
+              <NotifRow
+                icon={Users}
+                label="Referral Alerts"
+                sublabel="When someone joins with your code"
+                color="#10b981"
+                enabled={notifs.referral}
+                onToggle={() => toggle('referral')}
+              />
+              <NotifRow
+                icon={BarChart3}
+                label="Weekly Report"
+                sublabel="XP & earnings summary"
+                color="#a78bfa"
+                enabled={notifs.weekly}
+                onToggle={() => toggle('weekly')}
+              />
+            </div>
+          )}
+        </div>
+
         <SettingRow icon={Smartphone} label="Devices" sublabel="Manage connected devices" action={actions.device} color="#60a5fa" />
       </div>
 

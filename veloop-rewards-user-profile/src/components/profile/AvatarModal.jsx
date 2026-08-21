@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Upload,
-  Link as LinkIcon,
   Check,
   Dices,
   Image as ImageIcon,
   CheckCircle2,
-  AlertCircle,
   Pencil,
 } from 'lucide-react';
 import { useProfile } from '../../context/ProfileContext';
@@ -17,7 +15,7 @@ import { Modal } from '../common/Modal';
 export const AvatarModal = () => {
   const { avatarModalOpen, setAvatarModalOpen, userData, updateAvatar } = useProfile();
   const [selectedAvatar, setSelectedAvatar] = useState(userData?.avatar || '/avatar.jpg');
-  const [activeTab, setActiveTab] = useState('presets'); // 'presets' | 'upload' | 'url'
+  const [activeTab, setActiveTab] = useState('presets'); // 'presets' | 'upload'
   const [activeCategory, setActiveCategory] = useState(AVATAR_PRESETS[0]?.category || 'Cyberpunk & Sci-Fi');
   const [customUrl, setCustomUrl] = useState('');
   const [urlError, setUrlError] = useState(false);
@@ -191,17 +189,6 @@ export const AvatarModal = () => {
             <Upload className="w-3.5 h-3.5" />
             Upload File
           </button>
-          <button
-            onClick={() => setActiveTab('url')}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'url'
-                ? 'bg-[#ff6b00] text-white shadow-sm'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.03]'
-            }`}
-          >
-            <LinkIcon className="w-3.5 h-3.5" />
-            Image Link
-          </button>
         </div>
 
         {/* Tab Content */}
@@ -295,42 +282,7 @@ export const AvatarModal = () => {
             </div>
           )}
 
-          {/* TAB 3: CUSTOM URL */}
-          {activeTab === 'url' && (
-            <div className="space-y-3 pt-1">
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1.5">Image Web Address (URL)</label>
-                <div className="flex gap-2">
-                  <input
-                    type="url"
-                    placeholder="https://example.com/avatar.jpg"
-                    value={customUrl}
-                    onChange={(e) => {
-                      setCustomUrl(e.target.value);
-                      setUrlError(false);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') handleApplyUrl();
-                    }}
-                    className="flex-1 bg-white/[0.05] border border-white/10 focus:border-[#ff6b00] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition-all"
-                  />
-                  <button
-                    onClick={handleApplyUrl}
-                    className="px-3.5 py-2 rounded-xl bg-[#ff6b00] hover:bg-[#ff7a1a] text-white text-xs font-bold transition-all cursor-pointer shrink-0"
-                  >
-                    Preview
-                  </button>
-                </div>
-              </div>
 
-              {urlError && (
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>The image URL could not be loaded. Please verify the link.</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Footer Actions */}
