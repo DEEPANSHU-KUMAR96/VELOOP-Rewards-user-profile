@@ -64,12 +64,13 @@ export const UserProfilePage = () => {
   return (
     <div ref={containerRef} className="min-h-screen flex relative" style={{ background: 'var(--bg-base)', transition: 'background 0.35s ease' }}>
 
-      {/* Ambient background (GPU optimized subtle gradients) */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" style={{ transform: 'translateZ(0)' }}>
-        <div className="absolute top-[-80px] left-[30%] w-[500px] h-[500px] bg-[#ff6b00]/[0.05] rounded-full blur-[60px] transform-gpu" />
-        <div className="absolute bottom-20 right-[5%] w-[320px] h-[320px] bg-[#7c3aed]/[0.04] rounded-full blur-[50px] transform-gpu" />
-        <div className="absolute top-[40%] left-[60%] w-[200px] h-[200px] bg-[#0ea5e9]/[0.03] rounded-full blur-[40px] transform-gpu" />
-      </div>
+      {/* Ambient background (zero GPU overhead CSS radial gradient) */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        style={{
+          background: 'radial-gradient(ellipse 60% 40% at 50% -10%, rgba(255,107,0,0.06) 0%, transparent 80%), radial-gradient(circle 35% at 85% 75%, rgba(124,58,237,0.05) 0%, transparent 70%)',
+        }}
+      />
 
       {/* Sidebar — desktop */}
       <Sidebar />

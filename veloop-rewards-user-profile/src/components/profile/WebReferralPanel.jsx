@@ -109,11 +109,11 @@ export const WebReferralPanel = () => {
         {/* Top animated laser beam */}
         <div className="absolute top-0 left-0 right-0 h-[2px] refer-top-beam z-10" />
 
-        {/* Top animated ambient glow */}
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 bg-[#ff6b00]/25 rounded-full pointer-events-none refer-top-glow" />
+        {/* Top ambient glow */}
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 pointer-events-none rounded-full" style={{ background: 'radial-gradient(ellipse at center, rgba(255,107,0,0.22) 0%, transparent 70%)' }} />
 
-        {/* Bottom corner animated pulsing glow orb */}
-        <div className="absolute -bottom-10 -right-10 w-52 h-52 bg-gradient-to-br from-[#ff6b00]/30 to-[#ff3d00]/10 rounded-full pointer-events-none refer-glow-orb" />
+        {/* Bottom corner glow orb */}
+        <div className="absolute -bottom-10 -right-10 w-52 h-52 pointer-events-none rounded-full" style={{ background: 'radial-gradient(circle at center, rgba(255,107,0,0.20) 0%, transparent 70%)' }} />
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-5 relative z-10">
@@ -225,8 +225,8 @@ export const WebReferralPanel = () => {
         }}
       >
         {/* Ambient background glow */}
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-56 h-24 bg-[#7c3aed]/20 rounded-full pointer-events-none" style={{ filter: 'blur(32px)' }} />
-        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#ff6b00]/10 rounded-full pointer-events-none" style={{ filter: 'blur(30px)' }} />
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-56 h-24 pointer-events-none rounded-full" style={{ background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.22) 0%, transparent 70%)' }} />
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 pointer-events-none rounded-full" style={{ background: 'radial-gradient(circle at center, rgba(255,107,0,0.15) 0%, transparent 70%)' }} />
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-5 relative z-10">

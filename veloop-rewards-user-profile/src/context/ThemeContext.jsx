@@ -1,26 +1,21 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-const ThemeContext = createContext(null);
+const ThemeContext = createContext({ isDark: true, toggle: () => {} });
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('veloop-theme');
-    return saved ? saved === 'dark' : true; // default dark
-  });
+  const [isDark] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (isDark) {
-      root.setAttribute('data-theme', 'dark');
-      root.classList.add('dark');
-    } else {
-      root.setAttribute('data-theme', 'light');
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('veloop-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+    root.setAttribute('data-theme', 'dark');
+    root.classList.add('dark');
+    root.classList.remove('light');
+    localStorage.setItem('veloop-theme', 'dark');
+  }, []);
 
-  const toggle = () => setIsDark(prev => !prev);
+  const toggle = () => {
+    // Permanent dark mode
+  };
 
   return (
     <ThemeContext.Provider value={{ isDark, toggle }}>

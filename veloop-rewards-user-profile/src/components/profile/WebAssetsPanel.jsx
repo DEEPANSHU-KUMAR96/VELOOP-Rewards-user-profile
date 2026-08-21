@@ -146,8 +146,8 @@ export const WebAssetsPanel = () => {
   return (
     <div className="glass rounded-3xl p-5 sm:p-6 border border-theme-subtle relative overflow-hidden">
       {/* Ambient background */}
-      <div className="absolute -top-8 -left-8 w-40 h-40 bg-[#ff6b00]/05 rounded-full pointer-events-none" style={{ filter: 'blur(40px)' }} />
-      <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-[#8b5cf6]/05 rounded-full pointer-events-none" style={{ filter: 'blur(40px)' }} />
+      <div className="absolute -top-8 -left-8 w-40 h-40 pointer-events-none rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%)' }} />
+      <div className="absolute -bottom-8 -right-8 w-40 h-40 pointer-events-none rounded-full" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%)' }} />
 
       <div className="relative z-10">
         {/* Header */}
